@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ProjectManagementApi.Models;
 
@@ -19,9 +17,13 @@ public class ProductController : Controller
     
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductDto>>> All()
+    public async Task<ActionResult<IEnumerable<ProductDto>>> All([FromQuery(Name = "offset")] int offset = 0, [FromQuery(Name = "pages")] int pages = 10)
     {
-        return await _db.Products.Select((x) => ItemToDto(x)).ToListAsync();
+       return await _db.Products
+           .Skip(offset)
+           .Take(pages)
+           .Select((x) => ItemToDto(x))
+           .ToListAsync();
     }
 
     [HttpGet("{id}")]
