@@ -17,13 +17,20 @@ public class ProductController : Controller
     
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductDto>>> All([FromQuery(Name = "offset")] int offset = 0, [FromQuery(Name = "pages")] int pages = 10)
+    public async Task<ActionResult<IEnumerable<ProductDto>>> All([FromQuery(Name = "offset")] int offset = 0, [FromQuery(Name = "pages")] int pages = 10, [FromQuery(Name = "desc")] bool desc = false)
     {
-       return await _db.Products
-           .Skip(offset)
-           .Take(pages)
-           .Select((x) => ItemToDto(x))
-           .ToListAsync();
+        var query = _db.Products.AsQueryable();
+
+        if (desc)
+        {
+            query = query.OrderByDescending((x) => x.Id);
+        }
+
+        return await query
+            .Skip(offset)
+            .Take(pages)
+            .Select((x) => ItemToDto(x))
+            .ToListAsync();
     }
 
     [HttpGet("{id}")]

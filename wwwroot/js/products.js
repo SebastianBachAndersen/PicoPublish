@@ -1,6 +1,7 @@
 ﻿const path = 'api/product';
 let offset = 0;
 let pages = 10;
+let desc = false;
 
 function getItems(status = 'current') {
     if (status === 'next') {
@@ -13,7 +14,7 @@ function getItems(status = 'current') {
         offset = offset - 10;
     }
     
-    fetch(path + `?offset=${offset}&pages=${pages}`)
+    fetch(path + `?offset=${offset}&pages=${pages}${desc ? '&desc=true' : ''}`)
         .then((response) => response.json())
         .then((items) => displayProducts(items)) 
     
@@ -21,7 +22,6 @@ function getItems(status = 'current') {
 
 
 function displayProducts(items) {
-    console.log(items)
     const table = document.getElementById('products') 
     table.innerHTML = '';
     
@@ -74,4 +74,14 @@ function insertProduct() {
             description.value = '';
         })
     
+}
+
+function setOrder(descending= false) {
+    if (descending === desc) {
+        return;
+    }
+    desc = descending;
+    offset = 0;
+    pages = 10;
+    getItems();
 }
