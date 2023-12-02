@@ -1,3 +1,4 @@
+using System.Collections;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProjectManagementApi.Models;
@@ -19,4 +20,10 @@ public class ProductContext : Microsoft.EntityFrameworkCore.DbContext
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source={DbPath}");
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        new DbInitializer(modelBuilder).Seed(); 
+    }
 }
