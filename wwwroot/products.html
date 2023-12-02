@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Produkt oversigt</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>Navn</th>
+        <th>Beskrivelse</th>
+    </tr>
+    <tbody id="products"></tbody>
+</table>
+
+<button onclick="getItems('prev')">forrige side</button>
+<button onclick="getItems('next')">næste side</button>
+
+<script src="js/products.js" ></script>
+<script type="text/javascript">
+    getItems();
+</script>
+</body>
+</html>
