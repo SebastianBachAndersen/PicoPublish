@@ -2,37 +2,36 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProjectManagementApi;
+using ProjectManagementApi.Models;
 
 #nullable disable
 
 namespace ProjectManagementApi.Migrations
 {
-    [DbContext(typeof(DbContext))]
-    partial class DbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ProductContext))]
+    partial class ProductContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("ProjectManagementApi.Product", b =>
+            modelBuilder.Entity("ProjectManagementApi.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasKey("Id");
 
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Blogs");
+                    b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,17 +11,17 @@ namespace ProjectManagementApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Blogs",
+                name: "Products",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
-                    description = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Blogs", x => x.ProductId);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace ProjectManagementApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Blogs");
+                name: "Products");
         }
     }
 }
