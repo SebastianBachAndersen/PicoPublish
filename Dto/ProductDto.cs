@@ -1,4 +1,4 @@
-﻿namespace ProjectManagementApi;
+﻿namespace ProjectManagementApi.Dto;
 
 public class ProductDto
 {
