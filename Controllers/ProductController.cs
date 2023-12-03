@@ -46,7 +46,7 @@ public class ProductController : Controller
         return ItemToDto(product);
     }
     
-    [HttpPost]
+    [HttpPut]
     public async Task<ActionResult<Product>> Store(Product product)
     {
         _db.Products.Add(product);

@@ -57,7 +57,7 @@ function insertProduct() {
     const description = document.getElementById('description')
     
     fetch(path, {
-        method: "post",
+        method: "put",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
