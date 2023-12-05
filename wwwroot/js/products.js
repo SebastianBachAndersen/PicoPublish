@@ -86,7 +86,7 @@ function insertProduct() {
 function populateEditModal() {
     const formElement = document.getElementById('edit-form');
     const urlSearchParams = new URLSearchParams(window.location.search);
-    const product = urlSearchParams.forEach((val, key) => {
+     urlSearchParams.forEach((val, key) => {
         const elem = document.createElement('input');
         elem.value = val;
         elem.id = `product-${key}`;
