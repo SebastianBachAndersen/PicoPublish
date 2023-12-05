@@ -66,9 +66,18 @@ public class ProductController : Controller
         {
             return StatusCode(404);
         }
+
+
+        if (updateData.Description != null)
+        {
+            product.Description = updateData.Description;
+        }
+
+        if (updateData.Name != null)
+        {
+            product.Name = updateData.Name;
+        }
         
-        product.Description = updateData.Description;
-        product.Name = updateData.Name;
         await _db.SaveChangesAsync();
 
         return StatusCode(204);
