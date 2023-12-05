@@ -83,6 +83,19 @@ public class ProductController : Controller
         return StatusCode(204);
     }
 
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<Product>> Delete(int id)
+    {
+        var deleted = await _db.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
+
+        if (deleted != 1)
+        {
+            return NotFound();
+        }
+        
+        return NoContent();
+    }
+
     private static ProductDto ItemToDto(Product product) => new ProductDto
     {
         Id = product.Id,

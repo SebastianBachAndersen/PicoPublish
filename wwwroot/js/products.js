@@ -50,12 +50,36 @@ function displayProducts(items) {
         td3.appendChild(description);
         
         let edit = tr.insertCell(3);
-        
         let editButton = document.createElement('a');
         editButton.href=`edit.html?id=${item.id}&name=${item.name}&description=${item.description}`;
         editButton.innerHTML = 'rediger';
         edit.appendChild(editButton);
+        
+        let deleteRow = tr.insertCell(4);
+        let deleteButton = document.createElement('button');
+        deleteButton.innerHTML = 'slet';
+        deleteButton.onclick = () => deleteProduct(item.id);
+        deleteRow.appendChild(deleteButton);
+        
 
+    })
+}
+
+function deleteProduct(id) {
+
+    if (!confirm('Er du sikker på at du vil slette produktet?')) {
+        return;
+    }
+
+    fetch(`${path}/${id}`, {
+        method: "delete",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(() => {
+        getItems();
     })
 }
 
