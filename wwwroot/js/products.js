@@ -48,6 +48,13 @@ function displayProducts(items) {
 
         let td3 = tr.insertCell(2);
         td3.appendChild(description);
+        
+        let edit = tr.insertCell(3);
+        
+        let editButton = document.createElement('a');
+        editButton.href=`edit.html?id=${item.id}&name=${item.name}&description=${item.description}`;
+        editButton.innerHTML = 'rediger';
+        edit.appendChild(editButton);
 
     })
 }
@@ -74,6 +81,47 @@ function insertProduct() {
             description.value = '';
         })
     
+}
+
+function populateEditModal() {
+    const formElement = document.getElementById('edit-form');
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const product = urlSearchParams.forEach((val, key) => {
+        const elem = document.createElement('input');
+        elem.value = val;
+        elem.id = `product-${key}`;
+        elem.type = 'text';
+        
+        formElement.appendChild(elem);
+    });
+    
+    const saveButton = document.createElement('input');
+    saveButton.type = 'submit';
+    saveButton.value = 'Gem';
+    formElement.appendChild(saveButton);
+}
+
+function editProduct() {
+
+   const id = document.getElementById('product-id')
+    const name = document.getElementById('product-name')
+    const description = document.getElementById('product-description')
+    
+    
+    fetch(`${path}/${id.value.trim()}`, {
+        method: "patch",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name.value.trim(),
+            description: description.value.trim()
+        }),
+    })
+        .then(() => {
+            alert('Product saved')
+        })
 }
 
 function setOrder(descending= false) {
