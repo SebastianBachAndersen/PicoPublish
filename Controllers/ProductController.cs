@@ -49,12 +49,12 @@ public class ProductController : Controller
     
     [HttpPut]
     //TODO: use pretty product to remove id "requirement"
-    public async Task<ActionResult<Product>> Store(Product product)
+    public async Task<ActionResult<Product>> Store([FromBody]PrettyProduct productData)
     {
-        _db.Products.Add(product);
+        var entry = _db.Products.Add(new Product() {Name = productData.Name ?? "",Description = productData.Description});
         await _db.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(Get), new { id = product.Id}, product);
+        return CreatedAtAction(nameof(Get), new { id = entry.Entity.Id}, entry.Entity);
     }
 
     [HttpPatch("{id}")]
